@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping list example</title>
+  <style>
+    li {
+      margin-bottom: 10px;
+    }
+
+    li button {
+      font-size: 12px;
+      margin-left: 20px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>My shopping list</h1>
+
+  <div>
+    <label for="item">Enter a new item:</label>
+    <input type="text" name="item" id="item">
+    <button type="button">Add item</button> <!-- Cambié el tipo a button -->
+  </div>
+
+  <ul>
+
+  </ul>
+
+  <script>
+    const list = document.querySelector("ul");
+    const input = document.querySelector("input");
+    const btn = document.querySelector("button");
+
+    function eliminate(e) {
+      e.target.parentNode.remove();
+    }
+
+    function functionPrime(e) {
+      e.preventDefault(); // Asegura que el botón no tenga comportamiento de formulario
+
+      const text = input.value.trim(); // Captura el valor del campo de entrada
+      if (text) { // Solo se ejecuta si el texto no está vacío
+        input.value = ""; // Limpia el campo de entrada solo si el texto no está vacío
+        const listItem = document.createElement("li");
+        const spanObject = document.createElement("span");
+        const btnObject = document.createElement("button");
+
+        spanObject.innerText = text;
+        btnObject.innerText = "Delete";
+
+        listItem.appendChild(spanObject);
+        listItem.appendChild(btnObject);
+        list.appendChild(listItem);
+
+        btnObject.addEventListener("click", eliminate); // Asigna el evento de eliminar
+
+        input.focus(); // Vuelve a poner el foco en el campo de entrada
+      } else {
+        alert("Please enter an item."); // Avisa si el campo está vacío
+        input.focus(); // Enfoca el campo de entrada nuevamente
+      }
+    }
+
+    btn.addEventListener("click", functionPrime);
+  </script>
+</body>
+
+</html>
